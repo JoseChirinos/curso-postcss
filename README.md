@@ -10,6 +10,10 @@
 
   - [Plugins](#plugins)
 
+  - [CSS del Futuro](#css-del-futuro)
+
+  - [Media Queries](#media-queries)
+
 
 ## Introducción
   Usar el CSS del futuro ya no es un problema, gracias
@@ -192,3 +196,67 @@ Todo lo que vamos a hacer con PostCSS probablemente sea instalar plugins, es cie
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
 </div>
+
+## CSS del Futuro
+  Dentros de las nuevas caracteristicas tenemos:
+
+### Variables:
+  Las variables se declaran de la siguiente manera:
+
+```css
+  :root{
+    --darkColor: #15192a;
+  }
+```
+
+  Para usar una variable:
+
+```css
+  aside{
+    background-color: --darkColor;
+  }
+```
+
+### Calc
+  Nos sirve para realizar calculos de
+  medida entre (`px`, `%`, `em`, `etc`).
+
+  Para usar `calc`:
+
+  ```css
+    aside{
+      width: calc(100%-100px);
+    }
+  ```
+
+### Media Queries
+  Para controlar los mediaq queries tenemos:
+  
+  `@custom-media:` Es la manera de personalizar o asignar un alias a los media query.
+
+  Ejemplo:
+
+  ```css
+    @custom-media --extra-small (width < 480px);
+    @custom-media --small screen and (width < 768px);
+    @custom-media --medium screen and (width >= 768px);
+    @custom-media --large screen and (width >= 1024px);
+  ```
+
+  Al momento de usar el media query lo haríamos asi:
+
+  ```css
+    @media (—extra-small){ propiedades css }
+  ```
+
+### Imagenes Retina
+
+  Para trabajar con las imagenes retina,
+  se puede utilizar la propiedad:
+  `image-set()`
+
+  Para usar esta propiedad:
+
+  ```css
+    background-image: image-set(url('../../src/images/platzi-video.png') 1x, url('../../src/images/platzi-video-2x.png') 2x, url('../../src/images/platzi-video-3x.png') 300dpi);
+  ```

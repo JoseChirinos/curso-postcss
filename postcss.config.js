@@ -1,10 +1,14 @@
 module.exports = {
     plugins: [
-        require("autoprefixer")({
-            grid:true
-        }),
+        require("postcss-apply"),        
         require("postcss-preset-env")({
-            stage: 3,
+            autoprefixer: {
+              grid: true
+            },
+            browsers: [
+              "last 2 version",
+            ],
+            stage: 1,
             features: {
                 'nesting-rules': true
             }
