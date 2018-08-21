@@ -1,0 +1,56 @@
+.myPlaylist {
+  padding: 0 20px;
+}
+
+.myPlaylist :any-link:hover{
+  color: color-mod(peru l(80%) s(50%));
+  transform: scale(1.1)
+}
+
+.myPlaylist-item {
+  & a{
+    color: white;
+    text-decoration: none;
+    font-size: .8em;
+    display: block;
+    margin-bottom: 7px;
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+  &:last-child a{
+    margin-bottom: 0;
+  }
+  @nest .myPlaylist & {
+    border: 5px dashed pink;
+  }
+}
+
+/*
+.myPlaylist .myPlaylist-item{
+  border: 5px dashed blue;
+}
+*/
+/*
+.myPlaylist-item a {
+  color: white;
+  text-decoration: none;
+  font-size: .8em;
+  display: block;
+  margin-bottom: 7px;
+}
+.myPlaylist-item:last-child a {
+  margin-bottom: 0;
+}
+
+.myPlaylist-item a:hover {
+  text-decoration: underline;
+}
+*/
+
+.myPlaylist-item:matches(:last-child, :nth-of-type(3), :first-child){
+  background: color-mod(red l(70%));
+}
+.myPlaylist-item:not(:last-child, :nth-of-type(3), :first-child){
+  background: color-mod(blue l(80%));
+}

@@ -1,0 +1,37 @@
+.home {
+  /* autoprefixer: off */
+  background: var(--lightColor);
+  display: grid;
+  height: calc( var(--viewportHeight) * 2);
+  grid-template-columns: 350px 1fr;
+  grid-template-rows: 1fr 150px;
+  grid-template-areas: "sidebar primary"
+                       "sidebar featuring";
+  @media (--small){
+    height: auto;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 150px;
+    grid-template-areas: "primary"
+                         "sidebar"
+                         "featuring";
+  }
+}
+
+.home-sidebar {
+  grid-area: sidebar;
+}
+.home-primary {
+  grid-area: primary;
+}
+.home-featuring {
+  grid-area: featuring;
+}
+.home-primary {
+  display: grid;
+  grid-template-areas: "search user"
+                       "list list";
+  grid-template-rows: auto 1fr;
+  grid-template-columns: 300px 1fr;
+  padding: 10px;
+  overflow: auto;
+}

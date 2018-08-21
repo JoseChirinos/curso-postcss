@@ -11,8 +11,8 @@
   - [Plugins](#plugins)
 
   - [CSS del Futuro](#css-del-futuro)
-
-  - [Media Queries](#media-queries)
+  
+  - [Plugins Especiales](#plugins-especiales)
 
 
 ## Introducción
@@ -170,12 +170,14 @@ Todo lo que vamos a hacer con PostCSS probablemente sea instalar plugins, es cie
   ```js
     module.exports = {
         plugins: [
-            require("autoprefixer")({
-                grid:true
-            }),
-            //added
             require("postcss-preset-env")({
-              stage: 3,
+              autoprefixer: {
+                grid: true,
+              },
+              browsers: [
+                "last 2 version",
+              ],
+                stage: 1,
               features: {
                   'nesting-rules': true
               }
@@ -201,7 +203,12 @@ Todo lo que vamos a hacer con PostCSS probablemente sea instalar plugins, es cie
   Dentros de las nuevas caracteristicas tenemos:
 
 ### Variables:
-  Las variables se declaran de la siguiente manera:
+
+Las variables se declaran de la siguiente manera:
+
+#### [ cssnext y postcss-preset-env ]
+
+`Declaración:`
 
 ```css
   :root{
@@ -209,13 +216,91 @@ Todo lo que vamos a hacer con PostCSS probablemente sea instalar plugins, es cie
   }
 ```
 
-  Para usar una variable:
+`Uso:`
 
 ```css
   aside{
     background-color: --darkColor;
   }
 ```
+
+### @apply
+  Nos sirve incluir variables con bloques de código css:
+
+
+#### [ cssnext ]
+
+`Declaración:`
+
+```css
+  :root{
+    --button: {
+      color: white;
+      padding: 5px 10px;
+      background-color: #2d2d2d;
+    };
+  }
+```
+
+`Uso:`
+
+```css
+  .btn{
+    @apply --button;
+  }
+```
+
+#### [ postcss-preset-env ]
+
+ `Instalar:`
+  
+  ```sh
+  npm install --save postcss-apply
+  ```
+
+  `Agregar en el config:`
+
+  ```js
+  module.exports = {
+    plugins: [
+        require("postcss-apply"),
+        require("postcss-preset-env")({
+            autoprefixer: {
+              grid: true,
+            },
+            browsers: [
+              "last 2 version",
+            ],
+            stage: 1,
+            features: {
+                'nesting-rules': true,
+                'color-functional-notation':false,
+            }
+        })
+    ]
+}
+  ```
+
+`Declaración:`
+
+```css
+  :root{
+    --button: {
+      color: white;
+      padding: 5px 10px;
+      background-color: #2d2d2d;
+    };
+  }
+```
+
+`Uso:`
+
+```css
+  .btn{
+    @apply --button;
+  }
+  
+
 
 ### Calc
   Nos sirve para realizar calculos de
@@ -232,6 +317,7 @@ Todo lo que vamos a hacer con PostCSS probablemente sea instalar plugins, es cie
 ### Media Queries
   Para controlar los mediaq queries tenemos:
   
+#### [ cssnext y postcss-preset-env ]
   `@custom-media:` Es la manera de personalizar o asignar un alias a los media query.
 
   Ejemplo:
@@ -255,8 +341,194 @@ Todo lo que vamos a hacer con PostCSS probablemente sea instalar plugins, es cie
   se puede utilizar la propiedad:
   `image-set()`
 
-  Para usar esta propiedad:
+#### [ cssnext y postcss-preset-env ]
 
   ```css
     background-image: image-set(url('../../src/images/platzi-video.png') 1x, url('../../src/images/platzi-video-2x.png') 2x, url('../../src/images/platzi-video-3x.png') 300dpi);
   ```
+
+### Colores
+  Para usar las nuevas funciones de los colores podemos usar los siguientes:
+
+#### `* Color(color, alpha, contrast)`
+
+
+#### [ cssnext ]
+  `Sintaxis:`
+
+  ```css
+    background: color( color, alpha, contrast);
+  ```
+  
+  `Uso:`
+  
+  ```css
+    background: color( black, alpha(50%), contrast(30%));
+  ```
+#### [ postcss-preset-env ]
+  `Sintaxis:`
+
+  ```css
+    background: color-mod( color alpha contrast);
+  ```
+  
+  `Uso:`
+  
+  ```css
+    background: color-mod( black alpha(50%) contrast(30%));
+  ```
+
+
+#### `* hwb(hue, whiteness, blackness, alpha)`
+
+
+#### [ cssnext ]
+
+  `Sintaxis:`
+
+  ```css
+    background: hwb(hue [0 | 360], whiteness [0% | 100%], blackness [0% | 100%], alpha [ 0 | 1]);
+  ```
+
+  `Uso:`
+  
+  ```css
+    background: hwb( 100, 0%, 0%, 1);
+  ```
+
+#### [ postcss-preset-env ]
+  `Instalar:`
+  
+  ```sh
+  npm install --save postcss-color-hwb
+  ```
+
+  `Agregar en el config:`
+
+  ```js
+  module.exports = {
+    plugins: [
+        require("postcss-apply"),
+        require("postcss-color-hwb"), //added
+        require("postcss-preset-env")({
+            autoprefixer: {
+              grid: true,
+            },
+            browsers: [
+              "last 2 version",
+            ],
+            stage: 1,
+            features: {
+                'nesting-rules': true,
+                'color-functional-notation':false,
+            }
+        })
+    ]
+}
+  ```
+
+  `Sintaxis:`
+
+  ```css
+    background: hwb(hue [0 | 360], whiteness [0% | 100%], blackness [0% | 100%], alpha [ 0 | 1]);
+  ```
+
+  `Uso:`
+  
+  ```css
+    background: hwb( 100, 0%, 0%, 1);
+  ```
+
+
+### Selectores Personalizados
+  Los selectores personalizados se los realiza
+  de la siguiente manera:
+
+#### [ cssnext y postcss-preset-env ]
+
+  `Declaración:`
+
+  ```css
+    @custom-selector :--checkeable .checkbox-label, .radio-label;
+  ```
+
+  `Uso:`
+
+  ```css
+  :--checkeable {
+    /* tus estilos */
+  }
+  ```
+
+
+### Pseudo Selectores
+  
+  Nos permiten seleccionar clases de una manera mucho mejor.
+
+#### cssnext y postcss-preset-env
+
+  `:any-link pseudo-class`: Nos permite seleccionar cualquier enlace dentro de un selector.
+  ```css
+    .myPlaylist :any-link:hover{ transform: scale(1.1)}
+  ```
+
+  `​:matches pseudo-clases`: Nos permite seleccionar las coincidencias dentro de un selector.
+  
+  ```css
+  ​ .myPlaylist-item:matches(:last-child, :nth-of-type(3), :first-child){background: color(red l(70%))}
+  ```
+
+  `​:not pseudo-class`: Nos permite seleccionar lo que no coincida con las propiedades que le pase.
+
+  ```css
+  .myPlaylist-item:not(:last-child, :nth-of-type(3), :first-child){background: color(blue l(70%))}
+  ```
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Plugins Especiales
+
+- `postcss-import`
+   Para utilizar los imports en postcss.
+
+   ```sh
+   npm install postcss-import --save
+   ```
+
+- `postcss-font-magician`
+   Para importar fuentes, con @font-face
+
+   ```sh
+   npm install postcss-font-magician --save
+   ```
+
+- `stylelint`
+   Para revisar y controlar que estes escribiendo bien tus estilos css
+
+   ```sh
+   npm install stylelint --save-dev
+   ```
+- `css-mqpacker`
+   Para agrupar los mediaqueries y no esten por todo lado.
+
+   ```sh
+   npm install css-mqpacker --save-dev
+   ```
+- `cssnano`
+   Para minificar el código css
+
+   ```sh
+   npm install cssnano --save-dev
+   ```
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Enlaces Importante:
+
+  - [Postcss Pats](https://www.postcss.parts/)
+
+  - [CssNext](http://cssnext.io/)
+
+  - [postcss-preset-env](https://preset-env.cssdb.org/)

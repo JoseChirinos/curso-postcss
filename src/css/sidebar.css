@@ -1,0 +1,14 @@
+.sidebar {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  background: var(--darkColor);
+  color: white;
+  padding: 1em;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: auto;
+  /*background: color-mod(black alpha(50%) contrast(50%));*/
+  /*background: hwb(240,8%,82%,1);*/
+  /* background: gray(50);*/
+}

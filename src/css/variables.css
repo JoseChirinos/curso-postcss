@@ -1,0 +1,18 @@
+:root {
+  --darkColor: #171b2f;
+  --lightColor: white;
+  --warningColor: red;
+  --viewportHeight: 50vh;
+
+  --button: {
+    border: 1px solid var(--lightColor);
+    border-radius: 5px;
+    background: var(--darkColor);
+    color: var(--lightColor);
+    padding: .5em .6em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 12px;
+    border-bottom: 5px solid var(--lightColor)
+  };
+}

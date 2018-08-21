@@ -1,0 +1,4 @@
+.primary-list {
+  grid-area: list;
+  overflow: auto;
+}
