@@ -299,8 +299,7 @@ Las variables se declaran de la siguiente manera:
   .btn{
     @apply --button;
   }
-  
-
+```
 
 ### Calc
   Nos sirve para realizar calculos de
@@ -465,7 +464,7 @@ Las variables se declaran de la siguiente manera:
   
   Nos permiten seleccionar clases de una manera mucho mejor.
 
-#### cssnext y postcss-preset-env
+#### [ cssnext y postcss-preset-env ]
 
   `:any-link pseudo-class`: Nos permite seleccionar cualquier enlace dentro de un selector.
   ```css
